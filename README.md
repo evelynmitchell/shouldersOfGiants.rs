@@ -44,6 +44,27 @@ Download and tokenize a dataset. The [tinyshakespeare](https://raw.githubusercon
 python prepro_tinyshakespeare.py
 ```
 
+Because this project uses python I used poetry to manage the python dependencies. 
+
+```bash
+poetry init
+poetry shell # to activate the virtual environment
+poetry install
+```
+
+Then running the tokenizer:
+
+```bash
+python shouldersofgiants/prepro_tinyshakespeare.py
+```
+Which created the vocabularty files:
+```
+Downloading https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt to data/tiny_shakespeare.txt...
+data/tiny_shakespeare.txt: 1.06MiB [00:00, 20.1MiB/s]                          
+Saved 32768 tokens to data/tiny_shakespeare_val.bin
+Saved 305260 tokens to data/tiny_shakespeare_train.bin
+```
+
 
 test_gpt2.c
 train_gpt2.c
