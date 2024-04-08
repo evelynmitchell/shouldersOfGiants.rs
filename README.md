@@ -65,6 +65,19 @@ Saved 32768 tokens to data/tiny_shakespeare_val.bin
 Saved 305260 tokens to data/tiny_shakespeare_train.bin
 ```
 
+Looking at the _train.bin file with hexdump:
+
+```
+0000000 23f3 0000 0106 0000 99fa 0000 000d 0000
+0000010 0274 0000 c450 0000 58db 0000 c038 0000
+0000020 0325 0000 0019 0000 00c6 0000 23f3 0000
+0000030 0106 0000 99fa 0000 0000 0000 0274 0000
+0000040 c450 0000 af4f 0000 0028 0000 0dcf 0000
+0000050 061d 0000 0b79 0000 0019 0000 00c6 0000
+0000060 a41c 0000 000d 0000 0274 0000 c450 0000
+0000070 58db 0000 c038 0000 0325 0000 0019 0000
+```
+The first thing I noticed is that half of the data is 0's. This is the insight which leads to optimization opportunities. I'll leave that for later, once I get the code working.
 
 test_gpt2.c
 train_gpt2.c
