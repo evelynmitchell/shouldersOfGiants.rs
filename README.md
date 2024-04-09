@@ -115,7 +115,22 @@ which succeeded:
 ```
 Created binary (application) package
 ```
-That created Cargo.toml and main.rs I'll keep main.rs as the training code, for now.
+That created Cargo.toml and src/main.rs I'll keep main.rs as the training code, for now.
+
+To compile the main.rs:
+
+```bash
+cd src/
+rustc main.rs
+```
+and then run main
+
+```bash
+./main
+```
+Which outputs "Hello, world!"
+
+
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
