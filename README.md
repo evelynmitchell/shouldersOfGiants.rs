@@ -215,7 +215,8 @@ I'll remove the initial GPT2Config config creation assignment and do the creatio
         // other fields
     };
 ``` 
-A little tidy up to remove the prior config creation, and the code now works.
+A little tidy up to remove the prior config creation, and the code now works, sort of. I don't have the print of the values of the model.config working. I'll fix that next.
+
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
