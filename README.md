@@ -99,6 +99,25 @@ The GPT2 model is configured with some integers:
     num_heads which is number of heads in attention, e.g. 12
     channels which is number of channels, e.g. 768
 
+So I'll start by creating train_gpt2.rs with an empty main function and then add a GPT2 struct with these fields.
+
+#### Start the Rust project
+
+```bash
+cargo init 
+```
+This complains about the . in the package name (shouldersOfGiants.rs) so I'll use the --name flag.
+
+```bash
+cargo init --name shouldersOfGiants
+```
+which succeeded:
+```
+Created binary (application) package
+```
+That created Cargo.toml and main.rs I'll keep main.rs as the training code, for now.
+
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
