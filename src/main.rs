@@ -4,7 +4,7 @@ struct GPT2Config {
     num_layers: usize,  //number of layers, e.g. 12
     num_heads: usize,   //number of heads in attention, e.g. 12
     channels: usize,    //number of channels in fully connected layers, e.g. 768
-}
+} // usize is an unsigned integer type, the exact size depends on the platform
 
 struct GPT2Model {
     config: GPT2Config,

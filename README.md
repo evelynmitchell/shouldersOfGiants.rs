@@ -228,6 +228,14 @@ Model config - number of channels: 768
 
 [LESSON] The lesson from the config copy error is that it is easier to create something in the correct place than to try to move it around. 
 
+## Day 2 - 2024-04-09 after 693bc1b
+
+A bit of documentation and planning. 
+
+The next step in creating the struct to hold the GPT2 model is to load the checkpoint (gpt2_124M.bin). It took me a while to realize this is created by the reference python implementation train_gpt2.py, which requires PyTorch 2.2 or newer.
+
+So, I'll copy train_gpt2.py from llm.c and create the model checkpoint.
+
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 

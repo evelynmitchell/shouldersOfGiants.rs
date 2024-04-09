@@ -16,4 +16,6 @@ This is a place to put things to do outside of the main README log.
 [ ] data structures: ActivationTensors
 [ ] data structures: GPT2
 [ ] file loading: checkpoints
-[ ] file loading: where is gpt2_124M.bin ?
+[x] file loading: where is gpt2_124M.bin ?
+    This file is created by the reference python implementation train_gpt2.py
+[ ] create the model checkpoint
