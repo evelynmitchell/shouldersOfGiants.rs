@@ -145,6 +145,9 @@ Number of heads: 12
 Number of channels: 768
 ```
 
+The main data structure in train_gpt2.c is the GPT2 struct which contains the model parameters and the model itself. It is instantiated as a structure called model. I'll write that next.
+
+
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
