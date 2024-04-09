@@ -199,6 +199,22 @@ I'll move the reference again:
         // other fields
     };
 ```
+No, that failes with 'expected identifier, found `&`'.
+
+I'll remove the initial GPT2Config config creation assignment and do the creation within the GPT2Model struct.
+
+```rust
+    let model = GPT2Model {
+        config: GPT2Config {
+            max_seq_len: 1024,
+            vocab_size: 50257,
+            num_layers: 12,
+            num_heads: 12,
+            channels: 768,
+        };,
+        // other fields
+    };
+``` 
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)

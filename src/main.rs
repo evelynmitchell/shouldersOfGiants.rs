@@ -12,17 +12,16 @@ struct GPT2Model {
 }
 
 fn main() {
-    // Create a new GPT2Config object
-    let config = GPT2Config {
-        max_seq_len: 1024,
-        vocab_size: 50257,
-        num_layers: 12,
-        num_heads: 12,
-        channels: 768,
-    };
+    // Create a new GPT2Model object
 
     let model = GPT2Model {
-        &config: config,
+        config: GPT2Config {
+            max_seq_len: 1024,
+            vocab_size: 50257,
+            num_layers: 12,
+            num_heads: 12,
+            channels: 768,
+        };,
         // other fields
     };
 
