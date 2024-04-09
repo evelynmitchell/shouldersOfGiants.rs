@@ -181,6 +181,17 @@ My first guess is:
     };
 ```
 
+That isn't correct. 'expected  `GPT2Config`, found `&GPT2Config`'.
+So I'll try:
+
+```rust
+    let model = &GPT2Model {
+        config: config,
+        // other fields
+    };
+```
+
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
