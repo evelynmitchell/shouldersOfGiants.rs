@@ -250,6 +250,18 @@ This failed because I didn't have PyTorch (torch) installed. I'll install it wit
 ```bash
 poetry add torch
 ```
+
+Once more with the checkpoint build:
+```
+$ poetry run python src/train_gpt2.py
+```
+
+This failed due to missing huggingface transformers. I'll install that with poetry.
+
+```bash
+poetry add transformers
+```
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
