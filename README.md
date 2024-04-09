@@ -130,6 +130,7 @@ and then run main
 ```
 Which outputs "Hello, world!"
 
+Next I'll create the GPT2 config struct.
 
 
 
