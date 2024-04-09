@@ -16,3 +16,4 @@ This is a place to put things to do outside of the main README log.
 [ ] data structures: ActivationTensors
 [ ] data structures: GPT2
 [ ] file loading: checkpoints
+[ ] file loading: where is gpt2_124M.bin ?

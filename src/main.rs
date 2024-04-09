@@ -8,6 +8,9 @@ struct GPT2Config {
 
 struct GPT2Model {
     config: GPT2Config,
+    // karpathy loads the GPT2 checkpoints from a file
+    //  in gpt2_build_from_checkpoint 
+    //  Q: Where do I get gpt2_124M.bin?
     // other fields
 }
 
