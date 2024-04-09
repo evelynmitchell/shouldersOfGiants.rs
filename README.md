@@ -102,6 +102,7 @@ The GPT2 model is configured with some integers:
 So I'll start by creating train_gpt2.rs with an empty main function and then add a GPT2 struct with these fields.
 
 That worked!
+
 ```bash
 $ ./main
 Max sequence length: 1024
