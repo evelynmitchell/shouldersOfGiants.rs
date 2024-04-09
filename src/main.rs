@@ -21,16 +21,9 @@ fn main() {
             num_layers: 12,
             num_heads: 12,
             channels: 768,
-        };,
+        },
         // other fields
     };
-
-    // Access the fields of the config object
-    println!("Max sequence length: {}", config.max_seq_len);
-    println!("Vocab size: {}", config.vocab_size);
-    println!("Number of layers: {}", config.num_layers);
-    println!("Number of heads: {}", config.num_heads);
-    println!("Number of channels: {}", config.channels);
 
     // Access the fields of the model object
     println!("Model config - max sequence length: {}", model.config.max_seq_len);
@@ -38,5 +31,5 @@ fn main() {
     println!("Model config - number of layers: {}", model.config.num_layers);
     println!("Model config - number of heads: {}", model.config.num_heads);
     println!("Model config - number of channels: {}", model.config.channels);
-
+    
 }
