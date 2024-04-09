@@ -226,7 +226,7 @@ Model config - number of heads: 12
 Model config - number of channels: 768
 ```
 
-The lesson from the config copy error is that it is easier to create something in the correct place than to try to move it around. 
+[LESSON] The lesson from the config copy error is that it is easier to create something in the correct place than to try to move it around. 
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
