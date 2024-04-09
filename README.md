@@ -101,17 +101,6 @@ The GPT2 model is configured with some integers:
 
 So I'll start by creating train_gpt2.rs with an empty main function and then add a GPT2 struct with these fields.
 
-That worked!
-
-```bash
-$ ./main
-Max sequence length: 1024
-Vocab size: 50257
-Number of layers: 12
-Number of heads: 12
-Number of channels: 768
-```
-
 
 #### Start the Rust project
 
@@ -144,6 +133,17 @@ Which outputs "Hello, world!"
 
 Next I'll create the GPT2 config struct.
 
+
+That worked!
+
+```bash
+$ ./main
+Max sequence length: 1024
+Vocab size: 50257
+Number of layers: 12
+Number of heads: 12
+Number of channels: 768
+```
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
