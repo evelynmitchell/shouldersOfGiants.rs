@@ -238,7 +238,18 @@ So, I'll copy train_gpt2.py from llm.c and create the model checkpoint.
 
 I've reviewed train_gpt2.py and it is lovely code. Attention to detail in the particular form of GeLU used, and some naming nuances. The one change I made was to the location of the data file created out of tokenizing tinyshakespeare. I moved it to the data directory.
 
+To run the python code src/train_gpt2.py:
 
+```bash
+poetry init # to activate the virtual environment
+python src/train_gpt2.py
+```
+
+This failed because I didn't have PyTorch (torch) installed. I'll install it with poetry.
+
+```bash
+poetry add torch
+```
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
