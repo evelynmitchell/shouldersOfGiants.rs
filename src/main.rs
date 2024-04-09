@@ -21,8 +21,8 @@ fn main() {
         channels: 768,
     };
 
-    let model = &GPT2Model {
-        config: config,
+    let model = GPT2Model {
+        &config: config,
         // other fields
     };
 

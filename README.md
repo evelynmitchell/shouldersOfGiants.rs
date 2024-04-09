@@ -190,6 +190,15 @@ So I'll try:
         // other fields
     };
 ```
+That's also not correct and is back to the original error.
+I'll move the reference again:
+
+```rust
+    let model = GPT2Model {
+        &config: config,
+        // other fields
+    };
+```
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
