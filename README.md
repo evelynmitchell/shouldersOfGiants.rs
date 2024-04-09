@@ -79,8 +79,25 @@ Looking at the _train.bin file with hexdump:
 ```
 The first thing I noticed is that half of the data is 0's. This is the insight which leads to optimization opportunities. I'll leave that for later, once I get the code working.
 
-test_gpt2.c
-train_gpt2.c
+## train_gpt2.c review
+
+This implements the training loop for the GPT2 model. which consists of a stack of decoder blocks each of which is made up of a Masked Self-Attention layer and a Feed Forward layer.
+
+Because this is lowlevel code, and not using PyTorch, it will implement both the forward and the backward pass.
+
+### Code outline
+
+main function calls GPT2 model which sets up the model, and loads from a checkpoint. 
+
+### GPT2 model
+
+The GPT2 model is configured with some integers:
+
+    max_seq_len which is max sequence length, e.g. 1024
+    vocab_size which is vocab size, e.g. 50257
+    num_layers which is number of layers, e.g. 12
+    num_heads which is number of heads in attention, e.g. 12
+    channels which is number of channels, e.g. 768
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
