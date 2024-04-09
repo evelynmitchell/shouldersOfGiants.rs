@@ -320,8 +320,8 @@ if __name__ == "__main__":
     # load the tokens
     # prefer to use tiny_shakespeare if it's available, otherwise use tiny_stories
     # we're using val instead of train split just because it is smaller/faster
-    shake_tokens_bin = "data/tiny_shakespeare_val.bin"
-    story_tokens_bin = "data/TinyStories_val.bin"
+    shake_tokens_bin = "shouldersofgiants/data/tiny_shakespeare_val.bin"
+    story_tokens_bin = "shouldersofgiants/data/TinyStories_val.bin"
     assert os.path.isfile(shake_tokens_bin) or os.path.isfile(story_tokens_bin), "you must run prepro on some dataset"
     tokens_bin = shake_tokens_bin if os.path.isfile(shake_tokens_bin) else story_tokens_bin
     assert os.path.isfile(tokens_bin)
