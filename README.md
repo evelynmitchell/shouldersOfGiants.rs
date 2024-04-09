@@ -236,6 +236,8 @@ The next step in creating the struct to hold the GPT2 model is to load the check
 
 So, I'll copy train_gpt2.py from llm.c and create the model checkpoint.
 
+I've reviewed train_gpt2.py and it is lovely code. Attention to detail in the particular form of GeLU used, and some naming nuances. The one change I made was to the location of the data file created out of tokenizing tinyshakespeare. I moved it to the data directory.
+
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
