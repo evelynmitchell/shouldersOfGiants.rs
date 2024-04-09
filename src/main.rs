@@ -22,7 +22,7 @@ fn main() {
     };
 
     let model = GPT2Model {
-        config: config,
+        config: &config,
         // other fields
     };
 
@@ -39,5 +39,5 @@ fn main() {
     println!("Model config - number of layers: {}", model.config.num_layers);
     println!("Model config - number of heads: {}", model.config.num_heads);
     println!("Model config - number of channels: {}", model.config.channels);
-    
+
 }

@@ -147,7 +147,39 @@ Number of channels: 768
 
 The main data structure in train_gpt2.c is the GPT2 struct which contains the model parameters and the model itself. It is instantiated as a structure called model. I'll write that next.
 
+My first attempt on creating the GPT2 struct in Rust:
 
+```rust
+struct GPT2Model {
+    config: GPT2Config,
+    // other fields
+}
+...
+
+    let model = GPT2Model {
+        config: config,
+        // other fields
+    };
+```
+
+Failed because I'm copying the moving the config struct which is of type GPT2Config, but GPT2Config does not implement Copy. 
+
+I suspect the right thing to do is to move the config struct into the model struct. But, when I consult with the oracle:
+
+```bash
+rustc --explain E0382
+```
+
+I suspect that moving or copying is not the right plan, and that I should pass the config struct by reference. 
+
+My first guess is:
+
+```rust
+    let model = GPT2Model {
+        config: &config,
+        // other fields
+    };
+```
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
