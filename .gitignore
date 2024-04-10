@@ -17,3 +17,7 @@ Cargo.lock
 # Added by cargo
 
 /target
+
+# generated bin
+gpt2_124M_debug_state.bin
+gpt2_124M.bin
