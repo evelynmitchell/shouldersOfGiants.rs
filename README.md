@@ -262,6 +262,29 @@ This failed due to missing huggingface transformers. I'll install that with poet
 poetry add transformers
 ```
 
+And then run the checkpoint build again:
+
+```bash
+$ poetry run python src/train_gpt2.py
+```
+That worked!
+
+```
+wrote gpt2_124M.bin
+wrote gpt2_124M_debug_state.bin
+iteration 0, loss: 5.269998550415039
+iteration 1, loss: 4.059630870819092
+iteration 2, loss: 3.3749470710754395
+iteration 3, loss: 2.8005878925323486
+iteration 4, loss: 2.3152737617492676
+iteration 5, loss: 1.8489487171173096
+iteration 6, loss: 1.3945865631103516
+iteration 7, loss: 0.9988802075386047
+iteration 8, loss: 0.6241909265518188
+iteration 9, loss: 0.37664344906806946
+<|endoftext|>"If we want to die, we have to die at the front" —
+```
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
