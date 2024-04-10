@@ -285,6 +285,11 @@ iteration 9, loss: 0.37664344906806946
 <|endoftext|>"If we want to die, we have to die at the front" —
 ```
 
+## Day 3 - 2024-04-10 after e030079
+
+Added the two files gpt2_124M.bin and gpt2_124M_debug_state.bin to the .gitignore file.
+
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
