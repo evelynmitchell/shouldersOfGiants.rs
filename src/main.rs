@@ -1,3 +1,10 @@
+
+use std::io;
+use std::io::prelude::*;
+use std::fs::File;
+
+
+
 struct GPT2Config {
     max_seq_len: usize, //max sequence length, e.g. 1024
     vocab_size: usize,  //vocab size, e.g. 50257
@@ -8,10 +15,19 @@ struct GPT2Config {
 
 struct GPT2Model {
     config: GPT2Config,
-    // karpathy loads the GPT2 checkpoints from a file
-    //  in gpt2_build_from_checkpoint 
-    //  Q: Where do I get gpt2_124M.bin?
+    gpt2_build_from_checkpoint: fn() -> io::Result<()>,
     // other fields
+}
+
+fn gpt2_build_from_checkpoint() -> io::Result<()> {
+    let mut f = File::open("gpt2_124M.bin")?;
+    let mut buffer = [0; 10];
+
+    // read up to 10 bytes
+    let n = f.read(&mut buffer)?;
+
+    println!("The bytes: {:?}", &buffer[..n]);
+    Ok(())
 }
 
 fn main() {
@@ -25,6 +41,7 @@ fn main() {
             num_heads: 12,
             channels: 768,
         },
+        gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(),
         // other fields
     };
 

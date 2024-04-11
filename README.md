@@ -289,7 +289,136 @@ iteration 9, loss: 0.37664344906806946
 
 Added the two files gpt2_124M.bin and gpt2_124M_debug_state.bin to the .gitignore file.
 
+Updated the todo list. 
+
+Verified my dev environment is working by builing and running the main.rs file.
+
+Loading a file from disk in Rust.
+Figured out how to do that by reading [3] on IO in the Rust standard library.
+
+Then I got more than a little bit stuck on how to incorporate the function which reads the
+checkpoint file into the GPT2Model struct. The struct is defined as:
+
+```rust
+struct GPT2Model {
+    config: GPT2Config,
+    gpt2_build_from_checkpoint: fn() -> io::Result<()>,
+    // other fields
+}
+```
+Which is not the full struct, but only my guess so far.
+
+The struct merely describes the function signature. I'm using the main function to instantiate it:
+```rust
+    let model = GPT2Model {
+        config: GPT2Config {
+            max_seq_len: 1024,
+            vocab_size: 50257,
+            num_layers: 12,
+            num_heads: 12,
+            channels: 768,
+        },
+        gpt2_build_from_checkpoint: gpt2_build_from_checkpoint,
+    };
+```
+
+I'm getting several errors, the first of which is:
+
+```
+$ cargo check
+    Checking shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+error: expected one of `,`, `:`, or `}`, found `(`
+  --> src/main.rs:47:35
+   |
+39 |     let model = GPT2Model {
+   |                 --------- while parsing this struct
+...
+47 |         gpt2_build_from_checkpoint(model),
+   |         --------------------------^ expected one of `,`, `:`, or `}`
+   |         |
+   |         while parsing this struct field
+   |
+help: try naming a field
+   |
+47 |         gpt2_build_from_checkpoint: gpt2_build_from_checkpoint(model),
+   |         +++++++++++++++++++++++++++
+
+error[E0063]: missing field `gpt2_build_from_checkpoint` in initializer of `GPT2Model`
+  --> src/main.rs:39:17
+   |
+39 |     let model = GPT2Model {
+   |                 ^^^^^^^^^ missing `gpt2_build_from_checkpoint`
+
+For more information about this error, try `rustc --explain E0063`.
+```
+
+The first error says that I'm not instantiating the function which reads the checkpoint file correctly. 
+
+So I'll try the proposed fix, to see if that helps.
+
+That helped a bit. The new code is:
+```rust
+gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(model),
+```
+and the new error is:
+cargo check
+    Checking shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+error[E0425]: cannot find value `model` in this scope
+  --> src/main.rs:44:63
+   |
+44 |         gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(model),
+   |                                                               ^^^^^ not found in this scope
+
+error[E0308]: mismatched types
+  --> src/main.rs:44:36
+   |
+44 |         gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(model),
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected fn pointer, found `Result<(), Error>`
+   |
+   = note: expected fn pointer `fn() -> Result<(), std::io::Error>`
+                    found enum `Result<(), std::io::Error>`
+
+Some errors have detailed explanations: E0308, E0425.
+For more information about an error, try `rustc --explain E0308`.
+```
+
+The error on 'model' at line 44 is correct, because line 44 is within the instantiation of 'model'.
+
+So the call to gpt2_build_from_checkpoint should be different. I'm hardcoding the file name for
+simplicity, so that is not a parameter. I'll try removing the parameter, to see if that helps.
+
+That helped quite a bit. The new code is:
+```rust
+fn gpt2_build_from_checkpoint() -> io::Result<()> {
+    let mut f = File::open("gpt2_124M.bin")?;
+...
+
+        gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(),
+...
+```
+and the new error is:
+```
+cargo check
+    Checking shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+error[E0308]: mismatched types
+  --> src/main.rs:44:36
+   |
+44 |         gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(),
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected fn pointer, found `Result<(), Error>`
+   |
+   = note: expected fn pointer `fn() -> Result<(), std::io::Error>`
+                    found enum `Result<(), std::io::Error>`
+
+For more information about this error, try `rustc --explain E0308`.
+```
+
+So the return type of gpt2_build_from_checkpoint is not correct. I'd change it, but I"m not sure how to create a fn pointer. So that is enough for Day 3.
+
+
+```rust
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
+
+[3 std IO](https://doc.rust-lang.org/std/io/index.html) 
