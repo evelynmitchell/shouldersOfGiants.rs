@@ -414,8 +414,13 @@ For more information about this error, try `rustc --explain E0308`.
 
 So the return type of gpt2_build_from_checkpoint is not correct. I'd change it, but I"m not sure how to create a fn pointer. So that is enough for Day 3.
 
+## Day 4 2024-04-14 after b4491eb
 
-```rust
+
+Review the todo list. I'm still at file loading of the checkpoints.
+
+Added a workflows file to remind me of common cli commands.
+
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
