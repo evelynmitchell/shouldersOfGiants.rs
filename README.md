@@ -583,7 +583,27 @@ fn main() {
 New here is the happy path ```Ok``` and the error path ```Err```.
 
 
-Does it compile?
+Does it compile? 
+
+Nope!
+
+```bash
+cargo build
+   Compiling shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+error: expected one of `.`, `;`, `?`, `else`, or an operator, found `{`
+  --> src/main.rs:59:34
+   |
+59 |     let model = GPT2Model::new() {
+   |                                  ^ expected one of `.`, `;`, `?`, `else`, or an operator
+
+error: could not compile `shouldersofgiants` (bin "shouldersofgiants") due to 1 previous error
+```
+
+That looks like a typo.
+
+Yeah, I forgot the match keyword, which I believe is what signals there will be a happy path and an error path.
+
+Once more compile.
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 

@@ -56,14 +56,14 @@ fn main() {
     // Create a new GPT2Model object
     // instead of creating it in main, I'll call the initilization function from within the struct
 
-    let model = GPT2Model::new() {
+    let model = match GPT2Model::new() {
         Ok(model) => model,
         Err(e) => {
             eprintln!("Failed to initialize GPT2Model: {}", e);
             return;
         }
     };
-     
+
     // Access the fields of the model object
     println!("Model config - max sequence length: {}", model.config.max_seq_len);
     println!("Model config - vocab size: {}", model.config.vocab_size);
