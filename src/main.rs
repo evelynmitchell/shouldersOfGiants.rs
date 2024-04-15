@@ -15,8 +15,30 @@ struct GPT2Config {
 
 struct GPT2Model {
     config: GPT2Config,
-    gpt2_build_from_checkpoint: fn() -> io::Result<()>,
+    
     // other fields
+}
+
+impl GPT2Model {
+    fn new() -> io::Result<Self>{
+        // Call gpt2_build_from_checkpoint() to load the model from a checkpoint
+        // as part of the initialization
+        gpt2_build_from_checkpoint()?;
+           // I'm assuming the ? means this function may fail, or return a result?
+
+        // Initilize the model with default or specific configuration
+
+        Ok(GPT2Model {
+            config: GPT2Config {
+                max_seq_len: 1024,
+                vocab_size: 50257,
+                num_layers: 12,
+                num_heads: 12,
+                channels: 768,
+            },
+            // other fields
+        })
+    }
 }
 
 fn gpt2_build_from_checkpoint() -> io::Result<()> {
@@ -32,19 +54,16 @@ fn gpt2_build_from_checkpoint() -> io::Result<()> {
 
 fn main() {
     // Create a new GPT2Model object
+    // instead of creating it in main, I'll call the initilization function from within the struct
 
-    let model = GPT2Model {
-        config: GPT2Config {
-            max_seq_len: 1024,
-            vocab_size: 50257,
-            num_layers: 12,
-            num_heads: 12,
-            channels: 768,
-        },
-        gpt2_build_from_checkpoint:gpt2_build_from_checkpoint(),
-        // other fields
+    let model = GPT2Model::new() {
+        Ok(model) => model,
+        Err(e) => {
+            eprintln!("Failed to initialize GPT2Model: {}", e);
+            return;
+        }
     };
-
+     
     // Access the fields of the model object
     println!("Model config - max sequence length: {}", model.config.max_seq_len);
     println!("Model config - vocab size: {}", model.config.vocab_size);

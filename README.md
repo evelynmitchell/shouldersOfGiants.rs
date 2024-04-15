@@ -421,6 +421,169 @@ Review the todo list. I'm still at file loading of the checkpoints.
 
 Added a workflows file to remind me of common cli commands.
 
+Using phind to help me get ustuck on my current error, where I left off on day 3.
+
+``` phind
+The type mismatch error you're encountering is likely due to the way you're trying to assign the `gpt2_build_from_checkpoint` function to the `GPT2Model` struct. In Rust, when you're assigning a function to a struct field, you need to ensure that the function signature matches exactly what's expected by the struct field. In your case, the `gpt2_build_from_checkpoint` function returns `io::Result<()>`, but you're trying to assign it directly to a struct field without calling it.
+
+To fix this issue, you should call the `gpt2_build_from_checkpoint` function when assigning it to the `GPT2Model` struct. However, since the function returns a `Result`, you need to handle this result appropriately. One way to do this is to use the `unwrap` method for simplicity, but be aware that this will panic if the function returns an `Err`. For a more robust solution, you might want to handle the error explicitly.
+
+Here's how you can modify your `main` function to call the `gpt2_build_from_checkpoint` function and assign its result to the `GPT2Model` struct:
+
+```rust
+fn main() {
+    // Create a new GPT2Model object
+    let model = GPT2Model {
+        config: GPT2Config {
+            max_seq_len: 1024,
+            vocab_size: 50257,
+            num_layers: 12,
+            num_heads: 12,
+            channels: 768,
+        },
+        gpt2_build_from_checkpoint: gpt2_build_from_checkpoint().unwrap(), // Call the function and unwrap the result
+        // other fields
+    };
+
+    // Access the fields of the model object
+    println!("Model config - max sequence length: {}", model.config.max_seq_len);
+    println!("Model config - vocab size: {}", model.config.vocab_size);
+    println!("Model config - number of layers: {}", model.config.num_layers);
+    println!("Model config - number of heads: {}", model.config.num_heads);
+    println!("Model config - number of channels: {}", model.config.channels);
+}
+```
+
+However, this approach won't work directly because the `gpt2_build_from_checkpoint` function is not a field of the `GPT2Model` struct but a standalone function. If you want to store a function within a struct, you should use a function pointer or a closure, depending on your use case.
+
+Given the current structure of your code, it seems like you might want to call `gpt2_build_from_checkpoint` as part of the initialization process of your `GPT2Model` rather than storing it as a field. If that's the case, you should call this function outside of the struct initialization and handle its result accordingly.
+
+If you need further assistance with how to properly store and call functions within a struct, please let me know!```
+
+Ok I was totally confused about initializing ```GPT2Model```. Phind has advice:
+
+```
+To call `gpt2_build_from_checkpoint` as part of the initialization process of the `GPT2Model`, you can modify the `GPT2Model` struct to include a method that calls `gpt2_build_from_checkpoint` during its initialization. This approach involves using an **`impl` block** for `GPT2Model` to define a constructor-like method that sets up the model, including loading the checkpoint.
+
+Here's how you can refactor your code to include a method for initializing the `GPT2Model` that calls `gpt2_build_from_checkpoint`:
+
+1. **Define a new method for `GPT2Model`**: This method will be responsible for initializing the model, including calling `gpt2_build_from_checkpoint`.
+
+2. **Modify the `main` function**: Instead of directly creating a `GPT2Model` instance, you'll call this new method to create and initialize the model.
+
+Here's an example of how you might implement these changes:
+
+```rust
+// Assuming GPT2Config and GPT2Model are defined as before
+
+impl GPT2Model {
+    // This is a constructor-like method for GPT2Model
+    fn new() -> io::Result<Self> {
+        // Call gpt2_build_from_checkpoint as part of the initialization
+        gpt2_build_from_checkpoint()?;
+
+        // Initialize the model with default or specific configuration
+        Ok(GPT2Model {
+            config: GPT2Config {
+                max_seq_len: 1024,
+                vocab_size: 50257,
+                num_layers: 12,
+                num_heads: 12,
+                channels: 768,
+            },
+            // other fields
+        })
+    }
+}
+
+fn main() {
+    // Use the new method to create and initialize the GPT2Model
+    let model = match GPT2Model::new() {
+        Ok(model) => model,
+        Err(e) => {
+            eprintln!("Failed to initialize GPT2Model: {}", e);
+            return;
+        }
+    };
+
+    // Access the fields of the model object
+    println!("Model config - max sequence length: {}", model.config.max_seq_len);
+    println!("Model config - vocab size: {}", model.config.vocab_size);
+    println!("Model config - number of layers: {}", model.config.num_layers);
+    println!("Model config - number of heads: {}", model.config.num_heads);
+    println!("Model config - number of channels: {}", model.config.channels);
+}
+```
+
+In this example, `GPT2Model::new()` is a method that attempts to initialize a `GPT2Model` instance. It first calls `gpt2_build_from_checkpoint()` to load the checkpoint. If this operation is successful, it proceeds to initialize the `GPT2Model` with the specified configuration. If `gpt2_build_from_checkpoint()` fails, the method returns an error, and the `main` function handles this error by printing an error message and exiting.
+
+This approach encapsulates the initialization logic within the `GPT2Model` struct, making the code more organized and easier to maintain.
+```
+
+Q: what does impl mean when used to define a struct?
+
+Q: what does ()? mean when calling a function?
+
+This looks much better:
+```rust
+struct GPT2Model {
+    config: GPT2Config,
+    
+    // other fields
+}
+
+impl GPT2Model {
+    fn new() -> io::Result<Self>{
+        // Call gpt2_build_from_checkpoint() to load the model from a checkpoint
+        // as part of the initialization
+        gpt2_build_from_checkpoint()?;
+           // I'm assuming the ? means this function may fail, or return a result?
+
+        // Initilize the model with default or specific configuration
+
+        Ok(GPT2Model {
+            config: GPT2Config {
+                max_seq_len: 1024,
+                vocab_size: 50257,
+                num_layers: 12,
+                num_heads: 12,
+                channels: 768,
+            },
+            // other fields
+        })
+    }
+}
+```
+That defines the struct and initializes it. 
+
+The main function is now:
+
+```rust
+fn main() {
+    // Create a new GPT2Model object
+    // instead of creating it in main, I'll call the initilization function from within the struct
+
+    let model = GPT2Model::new() {
+        Ok(model) => model,
+        Err(e) => {
+            eprintln!("Failed to initialize GPT2Model: {}", e);
+            return;
+        }
+    };
+     
+    // Access the fields of the model object
+    println!("Model config - max sequence length: {}", model.config.max_seq_len);
+    println!("Model config - vocab size: {}", model.config.vocab_size);
+    println!("Model config - number of layers: {}", model.config.num_layers);
+    println!("Model config - number of heads: {}", model.config.num_heads);
+    println!("Model config - number of channels: {}", model.config.channels);
+    
+}
+```
+New here is the happy path ```Ok``` and the error path ```Err```.
+
+
+Does it compile?
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
