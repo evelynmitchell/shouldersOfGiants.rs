@@ -633,6 +633,20 @@ Figured out how to print the header of the checkpoint file.
 
 I needed to set both the initial read of the header and the output to mutable.
 
+```bash
+cargo run
+   Compiling shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.61s
+     Running `target/debug/shouldersofgiants`
+The header bytes: [198, 215, 52, 1, 1, 0, 0, 0, 0, 4, 0, 0, 81, 196, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Model config - max sequence length: 1024
+Model config - vocab size: 50257
+Model config - number of layers: 12
+Model config - number of heads: 12
+Model config - number of channels: 768
+```
+
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)
