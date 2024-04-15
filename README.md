@@ -646,6 +646,9 @@ Model config - number of heads: 12
 Model config - number of channels: 768
 ```
 
+Next in llm.c are a couple of validity checks on the model header of the checkpoint file -- just making sure a couple of magic numbers are correct.
+
+
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
