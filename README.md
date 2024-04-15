@@ -605,6 +605,29 @@ Yeah, I forgot the match keyword, which I believe is what signals there will be 
 
 Once more compile.
 
+And it works!
+
+```bash
+cargo build
+   Compiling shouldersofgiants v0.1.0 (/home/efm/git/myrepos/shouldersOfGiants.rs)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
+```
+
+```bash
+cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/shouldersofgiants`
+The bytes: [198, 215, 52, 1, 1, 0, 0, 0, 0, 4]
+Model config - max sequence length: 1024
+Model config - vocab size: 50257
+Model config - number of layers: 12
+Model config - number of heads: 12
+Model config - number of channels: 768
+```
+
+The line ```The bytes: [198, 215, 52, 1, 1, 0, 0, 0, 0, 4]``` is from the gpt2_build_from_checkpoint function.
+
+
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
 [2 tiktoken](https://github.com/openai/tiktoken)

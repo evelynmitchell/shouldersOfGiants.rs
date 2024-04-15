@@ -56,7 +56,7 @@ fn main() {
     // Create a new GPT2Model object
     // instead of creating it in main, I'll call the initilization function from within the struct
 
-    let model = match GPT2Model::new() {
+    let model = matchq GPT2Model::new() {
         Ok(model) => model,
         Err(e) => {
             eprintln!("Failed to initialize GPT2Model: {}", e);
