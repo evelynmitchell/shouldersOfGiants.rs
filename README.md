@@ -627,6 +627,11 @@ Model config - number of channels: 768
 
 The line ```The bytes: [198, 215, 52, 1, 1, 0, 0, 0, 0, 4]``` is from the gpt2_build_from_checkpoint function.
 
+## Day 5 2024-04-15 after 968e2c6
+
+Figured out how to print the header of the checkpoint file. 
+
+I needed to set both the initial read of the header and the output to mutable.
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)
 
