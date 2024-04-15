@@ -43,12 +43,18 @@ impl GPT2Model {
 
 fn gpt2_build_from_checkpoint() -> io::Result<()> {
     let mut f = File::open("gpt2_124M.bin")?;
-    let mut buffer = [0; 10];
+    // let bytes = std::fs::read("../my-file.txt")?;
+    // read the model header
+    let mut model_header : [u8; 256] = [0; 256];
+    // Initialize with 0s
+    let bytes_read = f.read(&mut model_header)?;
 
-    // read up to 10 bytes
-    let n = f.read(&mut buffer)?;
-
-    println!("The bytes: {:?}", &buffer[..n]);
+    if bytes_read != 256 {
+        return Err(io::Error::new(io::ErrorKind::InvalidData, "Invalid model header"));
+    }
+    // println!("The bytes: {:?}", &buffer[..n]);
+    println!("The header bytes: {:?}", &model_header[..256]);
+    
     Ok(())
 }
 
