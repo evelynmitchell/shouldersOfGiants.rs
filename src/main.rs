@@ -54,6 +54,10 @@ fn gpt2_build_from_checkpoint() -> io::Result<()> {
     }
     // println!("The bytes: {:?}", &buffer[..n]);
     println!("The header bytes: {:?}", &model_header[..256]);
+
+    // add the validity checks
+    if (model_header[0] != 20240326) { println!("Bad magic model file: {:?}", &model_header[0]); }
+    if (model_header[1] != 1) { printf("Bad version in model file {:?}", &model_header[1]); exit(1); }
     
     Ok(())
 }
