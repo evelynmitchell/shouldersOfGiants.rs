@@ -648,6 +648,16 @@ Model config - number of channels: 768
 
 Next in llm.c are a couple of validity checks on the model header of the checkpoint file -- just making sure a couple of magic numbers are correct.
 
+## Day 6 2024-04-16 
+Got the the magic number checks working. 
+
+The file read in Rust defaults to bytes, but the magic numbers are 4 byte (u32). So I had to convert the bytes to the longer size, and then do the integer comparison.
+
+```rust
+    let magic_number = u32::from_be_bytes([model_header[0],model_header[1],model_header[2],model_header[3]]);
+
+    if magic_number != 20240327 {
+```
 
 
 [1 Illustrated GPT2](https://jalammar.github.io/illustrated-gpt2/)

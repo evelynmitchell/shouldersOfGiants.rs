@@ -3,8 +3,6 @@ use std::io;
 use std::io::prelude::*;
 use std::fs::File;
 
-
-
 struct GPT2Config {
     max_seq_len: usize, //max sequence length, e.g. 1024
     vocab_size: usize,  //vocab size, e.g. 50257
@@ -43,11 +41,10 @@ impl GPT2Model {
 
 fn gpt2_build_from_checkpoint() -> io::Result<()> {
     let mut f = File::open("gpt2_124M.bin")?;
-    // let bytes = std::fs::read("../my-file.txt")?;
     // read the model header
-    let mut model_header : [u8; 256] = [0; 256];
+    let model_header : &mut[u8] = &mut[0; 256];
     // Initialize with 0s
-    let bytes_read = f.read(&mut model_header)?;
+    let bytes_read = f.read(model_header)?;
 
     if bytes_read != 256 {
         return Err(io::Error::new(io::ErrorKind::InvalidData, "Invalid model header"));
@@ -56,19 +53,18 @@ fn gpt2_build_from_checkpoint() -> io::Result<()> {
     println!("The header bytes: {:?}", &model_header[..256]);
 
     // add the validity checks
-    if model_header[0] != 20240326 { 
-               Err(e) => {
-            eprintln!("Bad magic model file: {:?}", &model_header[0], e);
-            return;
-        }
+    let magic_number = u32::from_be_bytes([model_header[0],model_header[1],model_header[2],model_header[3]]);
+
+    if magic_number != 20240327 { 
+        eprintln!("Bad magic model file: {:?}", &model_header[0]);
+        return Err(io::Error::new(io::ErrorKind::InvalidData, "Invalid model header"));
     }
     if model_header[1] != 1 {         
-        Err(e) => {
-            eprintln!("Bad version in model file {:?}", &model_header[1], e);
-            return;
-        }
-    Ok(())
+        eprintln!("Bad version in model file {:?}", &model_header[1]);
+        return Err(io::Error::new(io::ErrorKind::InvalidData, "Invalid model header"));
     }
+    Ok(())
+
 }
 
 fn main() {
